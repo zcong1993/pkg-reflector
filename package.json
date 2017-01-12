@@ -1,0 +1,33 @@
+{
+	"name": "pkg-reflector",
+	"version": "0.0.1",
+	"description": "install the pkgs your js file used",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zcong1993/pkg-reflector.git"
+	},
+	"keywords": [
+		"pkg",
+		"install",
+		"reflect"
+	],
+	"author": "zcong1993",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/zcong1993/pkg-reflector/issues"
+	},
+	"homepage": "https://github.com/zcong1993/pkg-reflector#readme",
+	"devDependencies": {
+		"babel-preset-env": "^1.1.8",
+		"eslint": "^3.13.1",
+		"eslint-config-zc": "^0.0.7",
+		"gulp": "^3.9.1",
+		"gulp-babel": "^6.1.2",
+		"gulp-chmod": "^2.0.0",
+		"gulp-eslint": "^3.0.1"
+	}
+}
