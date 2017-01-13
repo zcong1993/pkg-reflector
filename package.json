@@ -43,7 +43,7 @@
     "stream-to-observable": "^0.2.0",
     "update-notifier": "^1.0.3"
   },
-  "file": [
+  "files": [
     "dist"
   ],
   "engines": ">=6",
