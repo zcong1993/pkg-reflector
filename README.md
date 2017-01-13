@@ -1,2 +1,2 @@
 # pkg-reflector
-install the pkgs your js file used
+install the pkgs your js file used 
