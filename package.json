@@ -46,5 +46,6 @@
 	"file": [
 		"dist"
 	],
-	"engines": ">=6"
+	"engines": ">=6",
+	"bin": "dist/bin/pkg-reflector"
 }
