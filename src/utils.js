@@ -8,7 +8,8 @@ export function getDepsExisted () {
     throw new PkgError('package.json not exists, please create first !')
   }
   const {dependencies, devDependencies} = require(pkgPath)
-  const depsExists = Object.keys(dependencies).concat(Object.keys(devDependencies))
+  // const depsExists = Object.keys(dependencies).concat(Object.keys(devDependencies))
+  const depsExists = [].concat(Object.keys(dependencies || {}), Object.keys(devDependencies || {}))
   return depsExists
 }
 
