@@ -32,6 +32,6 @@ export const tasks = co.wrap(function * (input, flags) {
   if (flags.d) {
     opts.push('--dev')
   }
-  const deps = yield getDeps(input)
+  const deps = yield getDeps(input, flags)
   return tasks.run({deps, opts})
 })

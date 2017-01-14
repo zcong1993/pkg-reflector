@@ -32,11 +32,16 @@ const {input, flags} = meow({
   alias: {
     h: 'help',
     v: 'version',
-    d: 'dev'
+    d: 'dev',
+    a: 'all'
   }
 })
 
 tasks(path.resolve(process.cwd(), input[0]), flags)
+  .then((ctx) => {
+    const updatedPkgs = ctx.deps.toString()
+    console.log(green(`\n   ${updatedPkgs} updated !\n`))
+  })
   .catch((err) => errorHandler(err))
 
 update({pkg}).notify()
