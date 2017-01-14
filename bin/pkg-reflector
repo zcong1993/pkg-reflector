@@ -23,10 +23,17 @@ const {input, flags} = meow({
 
     ${bold('Options:')}
 
-      ${blue('--dev, -d')}                     ${dim('# save updated pkgs as devDependencies, default is dependencies')}
+      ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
+
+      ${blue('--es')}                    ${dim(`# install es6 pkgs which keyword is 'import', default is 'require' `)}
+
+      ${blue('--all, -a')}               ${dim(`# install all pkgs both 'require' and 'import'`)}
+
     ${bold('Examples:')}
 
-      ${blue('$ pkg-reflector index.js --dev')}           ${dim('# will install the file depends pkgs')}
+      ${blue('$ pkg-reflector index.js --dev')}
+
+      ${dim('# will install the file depends pkgs')}
   `
 }, {
   alias: {
