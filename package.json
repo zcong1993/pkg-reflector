@@ -1,6 +1,6 @@
 {
   "name": "pkg-reflector",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "install the pkgs your js file used",
   "scripts": {
     "test": "yarn run eslint && yarn run build",
