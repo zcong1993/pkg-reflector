@@ -3,9 +3,9 @@
   "version": "0.0.4",
   "description": "install the pkgs your js file used",
   "scripts": {
-    "test": "yarn run eslint && yarn run build",
-    "build": "gulp trans",
-    "eslint": "gulp lint"
+    "test": "yarn run build",
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
@@ -24,12 +24,14 @@
   "homepage": "https://github.com/zcong1993/pkg-reflector#readme",
   "devDependencies": {
     "babel-preset-env": "^1.1.8",
+    "del": "^2.2.2",
     "eslint": "^3.13.1",
     "eslint-config-zc": "^0.0.7",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-chmod": "^2.0.0",
-    "gulp-eslint": "^3.0.1"
+    "gulp-eslint": "^3.0.1",
+    "gulp-watch": "^4.3.11"
   },
   "dependencies": {
     "any-observable": "^0.2.0",

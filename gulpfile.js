@@ -3,6 +3,8 @@ const babel = require('gulp-babel')
 const eslint = require('gulp-eslint')
 const path = require('path')
 const chmod = require('gulp-chmod')
+const watch = require('gulp-watch')
+const del = require('del')
 
 const src = path.join(__dirname, 'src/**/*.js')
 const dist = path.join(__dirname, 'dist')
@@ -28,9 +30,15 @@ gulp.task('bin', () => {
     .pipe(gulp.dest(path.join(dist, 'bin')))
 })
 
+gulp.task('clean', (cb) => del([dist], cb))
+
 gulp.task('watch', () => {
-  gulp.watch(src, ['lint', 'trans'])
-  gulp.watch(binSrc, ['bin'])
+  watch(src, () => gulp.start(['lint', 'trans']))
+  watch(binSrc, () => gulp.start('bin'))
 })
 
-gulp.task('default', ['lint', 'trans', 'bin'])
+gulp.task('build', ['clean'], () => {
+  gulp.start(['lint', 'trans', 'bin'])
+})
+
+gulp.task('default', ['build'])
