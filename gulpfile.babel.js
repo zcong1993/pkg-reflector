@@ -1,10 +1,10 @@
-const gulp = require('gulp')
-const babel = require('gulp-babel')
-const eslint = require('gulp-eslint')
-const path = require('path')
-const chmod = require('gulp-chmod')
-const watch = require('gulp-watch')
-const del = require('del')
+import gulp from 'gulp'
+import babel from 'gulp-babel'
+import eslint from 'gulp-eslint'
+import path from 'path'
+import chmod from 'gulp-chmod'
+import watch from 'gulp-watch'
+import del from 'del'
 
 const src = path.join(__dirname, 'src/**/*.js')
 const dist = path.join(__dirname, 'dist')
