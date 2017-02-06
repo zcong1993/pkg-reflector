@@ -1,15 +1,16 @@
 import readline from 'readline'
 import fs from 'fs'
 import globby from 'globby'
-import {cwd} from './utils'
+import {cwd, isFile} from './utils'
 import PkgError from './pkg-error'
 
 export default function getDeps (input, flags) {
-  const files = globby.sync(['!**/node_modules/**', ...input])
+  const files = globby.sync([...input, '!**/node_modules/**'])
   const allDeps = []
-
   files.forEach((file) => {
-    allDeps.push(getFileDeps(cwd(file), flags))
+    if (isFile(cwd(file))) {
+      allDeps.push(getFileDeps(cwd(file), flags))
+    }
   })
   return Promise.all(allDeps)
     .then((results) => {

@@ -21,3 +21,7 @@ export function readFile (file) {
 export function cwd (...args) {
   return path.resolve(process.cwd(), ...args)
 }
+
+export function isFile (file) {
+  return fs.statSync(file).isFile()
+}
