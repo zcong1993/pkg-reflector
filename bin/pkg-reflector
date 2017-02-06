@@ -44,7 +44,7 @@ const {input, flags} = meow({
   }
 })
 
-tasks(path.resolve(process.cwd(), input[0]), flags)
+tasks(input, flags)
   .then((ctx) => {
     const updatedPkgs = ctx.deps.toString()
     console.log(green(`\n   ${updatedPkgs} installed !\n`))

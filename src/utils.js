@@ -1,6 +1,7 @@
 import pkgUp from 'pkg-up'
 import PkgError from './pkg-error'
 import fs from 'fs'
+import path from 'path'
 
 export function getDepsExisted () {
   const pkgPath = pkgUp.sync()
@@ -15,4 +16,8 @@ export function getDepsExisted () {
 
 export function readFile (file) {
   return fs.readFileSync(file, 'utf8')
+}
+
+export function cwd (...args) {
+  return path.resolve(process.cwd(), ...args)
 }

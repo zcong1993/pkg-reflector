@@ -1,8 +1,27 @@
 import readline from 'readline'
 import fs from 'fs'
+import globby from 'globby'
+import {cwd} from './utils'
 import PkgError from './pkg-error'
 
-export default function getDeps (file, flags) {
+export default function getDeps (input, flags) {
+  const files = globby.sync(['!**/node_modules/**', ...input])
+  const allDeps = []
+
+  files.forEach((file) => {
+    allDeps.push(getFileDeps(cwd(file), flags))
+  })
+  return Promise.all(allDeps)
+    .then((results) => {
+      const pkgs = new Set(results.reduce((a, b) => a.concat(b), []))
+      if ([...pkgs].length === 0) {
+        return Promise.reject(new PkgError('no pkgs to install'))
+      }
+      return [...pkgs]
+    })
+}
+
+function getFileDeps (file, flags) {
   const isES = flags.es
   const isAll = flags.all
   const deps = []
@@ -14,7 +33,7 @@ export default function getDeps (file, flags) {
     input: fs.createReadStream(file)
   })
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     rl.on('line', (line) => {
       if (!isES || isAll) {
         const matches = line.match(reg)
@@ -29,9 +48,6 @@ export default function getDeps (file, flags) {
         }
       }
     }).on('close', () => {
-      if (deps.length === 0) {
-        return reject(new PkgError('this file has no pkgs to install'))
-      }
       return resolve(deps)
     })
   })
