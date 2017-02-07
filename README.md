@@ -6,6 +6,10 @@ install the pkgs your js file used by yarn
 
 ---
 
+## New
+
+- now support multi files, can be used like `pkg-reflector src/* libs/* *.js`, resolve files using [globby](https://github.com/sindresorhus/globby) and always ignore `**/node_modules/**`
+
 ## Install
 
 ```sh
