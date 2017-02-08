@@ -1,7 +1,8 @@
 import Listr from 'listr'
-import getDeps from './get-deps'
 import co from 'co'
-import filterPkgs from './filter'
+import pkgDir from 'pkg-dir'
+import getDeps from './get-deps'
+import {filterNodeCorePkgs, filterDepsExisted} from './filter'
 import exec from './exec'
 
 export const tasks = co.wrap(function * (input, flags) {
@@ -14,7 +15,10 @@ export const tasks = co.wrap(function * (input, flags) {
       title: 'Filter the pkgs',
       skip: (ctx) => ctx.deps.length === 0,
       task: (ctx) => {
-        ctx.deps = ctx.deps.filter((pkg) => filterPkgs(pkg))
+        ctx.deps = ctx.deps.filter((pkg) => filterNodeCorePkgs(pkg))
+        if (!ctx.opts.here) {
+          ctx.deps = ctx.deps.filter((pkg) => filterDepsExisted(pkg))
+        }
       }
     },
     {
@@ -24,14 +28,25 @@ export const tasks = co.wrap(function * (input, flags) {
           return 'deps already exists'
         }
       },
-      task: (ctx) => exec('yarn', ['add'].concat(ctx.deps, ctx.opts))
+      task: (ctx) => exec('yarn', ['add'].concat(ctx.deps, ctx.opts.yarn))
     }
   ])
 
-  const opts = []
-  if (flags.d) {
-    opts.push('--dev')
+  const opts = {
+    yarn: [],
+    here: ''
   }
   const deps = yield getDeps(input, flags)
+  const projectRootPath = yield pkgDir()
+
+  if (flags.d) {
+    opts.yarn.push('--dev')
+  }
+  if (flags.h) {
+    opts.here = true
+  } else {
+    process.chdir(projectRootPath)
+  }
+
   return tasks.run({deps, opts})
 })

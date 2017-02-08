@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+import meow from 'meow'
+import chalk from 'chalk'
+import path from 'path'
+import errorHandler from '../error-handler'
+import update from 'update-notifier'
+import pkg from '../../package'
+import {tasks} from '../'
+
+const blue = chalk.blue
+const bold = chalk.bold
+const dim = chalk.dim
+const green = chalk.green
+
+const {input, flags} = meow({
+  description: false,
+  help: `
+    install a js file depends pkgs automatic using yarn
+
+    ${bold('Usage:')}
+
+      $ pkg-reflector <file[s]> [options]
+
+    ${bold('Options:')}
+
+      ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
+
+      ${blue('--es')}                    ${dim(`# install es6 pkgs which keyword is 'import', default is 'require' `)}
+
+      ${blue('--all, -a')}               ${dim(`# install all pkgs both 'require' and 'import'`)}
+
+      ${blue('--here, -h')}              ${dim(`# install the pkgs in the pwd folder`)}
+
+    ${bold('Examples:')}
+
+      ${blue('$ pkg-reflector src/* --dev')}
+
+      ${dim('# will install the file depends pkgs')}
+  `
+}, {
+  alias: {
+    h: 'help',
+    v: 'version',
+    d: 'dev',
+    a: 'all',
+    h: 'here'
+  }
+})
+
+tasks(input, flags)
+  .then((ctx) => {
+    const updatedPkgs = ctx.deps.toString()
+    console.log(green(`\n   ${updatedPkgs} installed !\n`))
+  })
+  .catch((err) => errorHandler(err))
+
+update({pkg}).notify()
