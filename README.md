@@ -65,7 +65,7 @@ will install the pkgs of the file depended, only install the `es5` modules which
 
     $ pkg-reflector <file> --dev
 
-### install in cwd folder `--here, -h`
+### install in cwd folder `--here`
 
     $ pkg-reflector <file> --here
 

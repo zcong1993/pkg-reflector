@@ -15,17 +15,17 @@ const green = chalk.green
 const {input, flags} = meow({
   description: false,
   help: `
-    install a js file depends pkgs automatic using yarn
+    ${bold('install a js file depends pkgs automatic using yarn')}
 
     ${bold('Usage:')}
 
-      $ pkg-reflector <file[s]> [options]
+        ${blue('$ pkg-reflector <file[s]> [options]')}
 
     ${bold('Options:')}
 
       ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
 
-      ${blue('--here, -h')}              ${dim(`# install the pkgs in the pwd folder`)}
+      ${blue('--here')}                  ${dim(`# install the pkgs in the cwd folder`)}
 
     ${bold('Examples:')}
 
@@ -37,8 +37,7 @@ const {input, flags} = meow({
   alias: {
     h: 'help',
     v: 'version',
-    d: 'dev',
-    h: 'here'
+    d: 'dev'
   }
 })
 

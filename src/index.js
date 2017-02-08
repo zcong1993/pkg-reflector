@@ -43,7 +43,7 @@ export const tasks = co.wrap(function * (input, flags) {
   if (flags.d) {
     opts.yarn.push('--dev')
   }
-  if (flags.h) {
+  if (flags.here) {
     opts.here = true
   } else {
     process.chdir(projectRootPath)
