@@ -4,6 +4,7 @@ import pkgDir from 'pkg-dir'
 import getDeps from './get-deps'
 import {filterNodeCorePkgs, filterDepsExisted} from './filter'
 import exec from './exec'
+import {hasPkgJsonHere} from './utils'
 
 export const tasks = co.wrap(function * (input, flags) {
   const tasks = new Listr([
@@ -16,7 +17,7 @@ export const tasks = co.wrap(function * (input, flags) {
       skip: (ctx) => ctx.deps.length === 0,
       task: (ctx) => {
         ctx.deps = ctx.deps.filter((pkg) => filterNodeCorePkgs(pkg))
-        if (!ctx.opts.here) {
+        if (!ctx.opts.here || hasPkgJsonHere()) {
           ctx.deps = ctx.deps.filter((pkg) => filterDepsExisted(pkg))
         }
       }

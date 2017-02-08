@@ -25,3 +25,7 @@ export function cwd (...args) {
 export function isFile (file) {
   return fs.statSync(file).isFile()
 }
+
+export function hasPkgJsonHere () {
+  return fs.existsSync(path.resolve(process.cwd(), 'package.json'))
+}
