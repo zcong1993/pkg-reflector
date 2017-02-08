@@ -4,7 +4,7 @@ import {cwd, isFile, readFile} from './utils'
 import PkgError from './pkg-error'
 
 export default function getDeps (input) {
-  const files = globby.sync([...input, '!**/node_modules/**'])
+  const files = globby.sync([...input, '!**/node_modules/**']).filter((file) => /\.jsx?$/.test(file))
   const allDeps = []
   files.forEach((file) => {
     if (isFile(cwd(file))) {
