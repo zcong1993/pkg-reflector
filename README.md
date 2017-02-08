@@ -8,6 +8,10 @@ install the pkgs your js file used by yarn
 
 ## New
 
+- support `here` mode, install pkgs in cwd folder, more details see `Usage` below
+
+- support alias `prf` for `pkg-reflector`
+
 - now support multi files, can be used like `pkg-reflector src/* libs/* *.js`, resolve files using [globby](https://github.com/sindresorhus/globby) and always ignore `**/node_modules/**`
 
 ## Install
@@ -33,7 +37,7 @@ you always get some error when add pkgs cause wrong spelling of the long pkg nam
 ```sh
 $ pkg-reflector foo.js
 # then have a coffee
-``` 
+```
 
 easy way, isn't it ?
 
@@ -46,29 +50,33 @@ easy way, isn't it ?
 
 ## Usage
 
-    $ pkg-reflector [js file] <options>
+    $ pkg-reflector <js file[s]> [options]
 
-### simple 
+### simple
 
-    $ pkg-reflector [file]
+    $ pkg-reflector <file>
 
 
 will install the pkgs of the file depended, only install the `es5` modules which key word is `require`, and save `dependence` to `closest` package.json.
 
 ### install es6 modules only `--es`
 
-    $ pkg-reflector [file] --es
+    $ pkg-reflector <file> --es
 
 will install pkgs which key word is `import`.
 
 ### install all modules `--all, -a`
-    
-    $ pkg-reflector [file] --all
+
+    $ pkg-reflector <file> --all
 
 will install pkgs all of above.
 
 ### save as devDependences `--dev, -d`
 
-    $ pkg-reflector [file] --dev
+    $ pkg-reflector <file> --dev
 
-   
+### install in cwd folder `--here, -h`
+
+    $ pkg-reflector <file> --here
+
+will install pkgs in the cwd folder, and create a new package.json here, default working folder is the root directory of your npm package project, for details see [sindresorhus/pkg-dir](https://github.com/sindresorhus/pkg-dir)
