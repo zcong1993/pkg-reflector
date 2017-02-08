@@ -25,10 +25,6 @@ const {input, flags} = meow({
 
       ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
 
-      ${blue('--es')}                    ${dim(`# install es6 pkgs which keyword is 'import', default is 'require' `)}
-
-      ${blue('--all, -a')}               ${dim(`# install all pkgs both 'require' and 'import'`)}
-
       ${blue('--here, -h')}              ${dim(`# install the pkgs in the pwd folder`)}
 
     ${bold('Examples:')}
@@ -42,7 +38,6 @@ const {input, flags} = meow({
     h: 'help',
     v: 'version',
     d: 'dev',
-    a: 'all',
     h: 'here'
   }
 })

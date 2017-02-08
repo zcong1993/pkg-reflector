@@ -8,6 +8,8 @@ install the pkgs your js file used by yarn
 
 ## New
 
+- using [egoist/konan](https://github.com/egoist/konan) find modules, and always install es5 es6 modules
+
 - support `here` mode, install pkgs in cwd folder, more details see `Usage` below
 
 - support alias `prf` for `pkg-reflector`
@@ -46,7 +48,7 @@ easy way, isn't it ?
 - ignore local file, such as `./index.js`
 - correct parse `foo/bar` pkgs
 - find the closest `package.json` by `pkg-up`
-- can only install es5 modules, es6 modules or all of them
+- always install all the es5 modules and es6 modules
 
 ## Usage
 
@@ -58,18 +60,6 @@ easy way, isn't it ?
 
 
 will install the pkgs of the file depended, only install the `es5` modules which key word is `require`, and save `dependence` to `closest` package.json.
-
-### install es6 modules only `--es`
-
-    $ pkg-reflector <file> --es
-
-will install pkgs which key word is `import`.
-
-### install all modules `--all, -a`
-
-    $ pkg-reflector <file> --all
-
-will install pkgs all of above.
 
 ### save as devDependences `--dev, -d`
 

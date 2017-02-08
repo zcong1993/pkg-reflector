@@ -1,15 +1,14 @@
-import readline from 'readline'
-import fs from 'fs'
 import globby from 'globby'
-import {cwd, isFile} from './utils'
+import konan from 'konan'
+import {cwd, isFile, readFile} from './utils'
 import PkgError from './pkg-error'
 
-export default function getDeps (input, flags) {
+export default function getDeps (input) {
   const files = globby.sync([...input, '!**/node_modules/**'])
   const allDeps = []
   files.forEach((file) => {
     if (isFile(cwd(file))) {
-      allDeps.push(getFileDeps(cwd(file), flags))
+      allDeps.push(getFileDeps(cwd(file)))
     }
   })
   return Promise.all(allDeps)
@@ -22,34 +21,10 @@ export default function getDeps (input, flags) {
     })
 }
 
-function getFileDeps (file, flags) {
-  const isES = flags.es
-  const isAll = flags.all
-  const deps = []
-  // require\(\W+([\w-.]+)[\/\w]*[\W]+\)
-  const reg = /require\(['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+\)/i // eslint-disable-line no-useless-escape
-  const regES = /import[^."]+['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+/i // eslint-disable-line no-useless-escape
-
-  const rl = readline.createInterface({
-    input: fs.createReadStream(file)
-  })
-
-  return new Promise((resolve) => {
-    rl.on('line', (line) => {
-      if (!isES || isAll) {
-        const matches = line.match(reg)
-        if (matches) {
-          deps.push(matches[1])
-        }
-      }
-      if (isES || isAll) {
-        const matchesES = line.match(regES)
-        if (matchesES) {
-          deps.push(matchesES[1])
-        }
-      }
-    }).on('close', () => {
-      return resolve(deps)
-    })
-  })
+function getFileDeps (file) {
+  const regex = new RegExp(/^[a-zA-Z][^/]+/)
+  const content = readFile(file)
+  let deps = konan(content).filter((pkg) => pkg.match(regex))
+  deps = deps.map((pkg) => pkg.match(regex)[0])
+  return Promise.resolve(deps)
 }
