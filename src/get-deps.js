@@ -28,7 +28,7 @@ function getFileDeps (file, flags) {
   const deps = []
   // require\(\W+([\w-.]+)[\/\w]*[\W]+\)
   const reg = /require\(['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+\)/i // eslint-disable-line no-useless-escape
-  const regES = /import[^."]+['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+/i // eslint-disable-line no-useless-escape
+  const regES = /^import[^."]+['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+/i // eslint-disable-line no-useless-escape
 
   const rl = readline.createInterface({
     input: fs.createReadStream(file)
