@@ -47,11 +47,11 @@ const {input, flags} = meow({
   }
 })
 
+update({pkg}).notify()
+
 tasks(input, flags)
   .then((ctx) => {
     const updatedPkgs = ctx.deps.toString()
-    console.log(green(`\n   ${updatedPkgs} installed !\n`))
+    console.log(green(`\n${chalk.gray.bgGreen.bold('success')} ${updatedPkgs} installed !\n`))
   })
   .catch((err) => errorHandler(err))
-
-update({pkg}).notify()
