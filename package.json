@@ -41,7 +41,6 @@
     "globby": "^6.1.0",
     "listr": "^0.9.0",
     "meow": "^3.7.0",
-    "node-alias": "^1.0.4",
     "pkg-dir": "^1.0.0",
     "pkg-up": "^1.0.0",
     "split": "^1.0.0",
@@ -54,6 +53,6 @@
   "engines": ">=6",
   "bin": {
     "pkg-reflector": "dist/bin/pkg-reflector",
-    "prf": "dist/bin/prf"
+    "prf": "dist/bin/pkg-reflector"
   }
 }
