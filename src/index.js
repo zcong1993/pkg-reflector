@@ -1,6 +1,7 @@
 import Listr from 'listr'
 import co from 'co'
 import pkgDir from 'pkg-dir'
+import {hasYarn} from 'yarn-or-npm'
 import getDeps from './get-deps'
 import {filterNodeCorePkgs, filterDepsExisted} from './filter'
 import exec from './exec'
@@ -23,27 +24,35 @@ export const tasks = co.wrap(function * (input, flags) {
       }
     },
     {
-      title: 'Install pkgs via yarn',
+      title: 'Install pkgs',
       skip: (ctx) => {
         if (ctx.deps.length === 0) {
           return 'deps already exists'
         }
       },
-      task: (ctx) => exec('yarn', ['add'].concat(ctx.deps, ctx.opts.yarn))
+      task: (ctx) => {
+        exec(ctx.opts.manager, [ctx.opts.action].concat(ctx.deps, ctx.opts.cmds))
+      }
     }
   ])
 
+  const isYarn = hasYarn()
   const opts = {
-    yarn: [],
+    manager: isYarn ? 'yarn' : 'npm',
+    action: isYarn ? 'add' : 'install',
+    cmds: [],
     here: ''
   }
   const deps = yield getDeps(input, flags)
   const projectRootPath = yield pkgDir()
 
   if (flags.d) {
-    opts.yarn.push('--dev')
+    opts.cmds.push(isYarn ? '--dev' : '-D')
   }
-  if (flags.h) {
+  if (!isYarn && !flags.d) {
+    opts.cmds.push('--save')
+  }
+  if (flags.here) {
     opts.here = true
   } else {
     process.chdir(projectRootPath)

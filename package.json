@@ -46,7 +46,8 @@
     "pkg-up": "^1.0.0",
     "split": "^1.0.0",
     "stream-to-observable": "^0.2.0",
-    "update-notifier": "^1.0.3"
+    "update-notifier": "^1.0.3",
+    "yarn-or-npm": "^2.0.4"
   },
   "files": [
     "dist"

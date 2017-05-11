@@ -847,7 +847,7 @@ create-error-class@^3.0.1:
   dependencies:
     capture-stack-trace "^1.0.0"
 
-cross-spawn@^5.0.1:
+cross-spawn@^5.0.0, cross-spawn@^5.0.1:
   version "5.0.1"
   resolved "http://registry.npm.taobao.org/cross-spawn/download/cross-spawn-5.0.1.tgz#a3bbb302db2297cbea3c04edf36941f4613aa399"
   dependencies:
@@ -3461,3 +3461,9 @@ xdg-basedir@^2.0.0:
 yallist@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/yallist/download/yallist-2.0.0.tgz#306c543835f09ee1a4cb23b7bce9ab341c91cdd4"
+
+yarn-or-npm@^2.0.4:
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/yarn-or-npm/download/yarn-or-npm-2.0.4.tgz#46e38aafce74c350e6c0cca72712fca7410fad98"
+  dependencies:
+    cross-spawn "^5.0.0"
