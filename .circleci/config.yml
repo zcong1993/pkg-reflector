@@ -14,11 +14,11 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install dependences
-          command: yarn
+          command: npm i
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
           name: test
-          command: yarn test
+          command: npm run test
