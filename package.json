@@ -1,6 +1,6 @@
 {
   "name": "pkg-reflector",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "install the pkgs your js file used",
   "scripts": {
     "test": "jest && xo",
