@@ -1,6 +1,8 @@
-# pkg-reflector [![Build Status](https://img.shields.io/circleci/project/zcong1993/pkg-reflector/master.svg?style=flat)](https://circleci.com/gh/zcong1993/pkg-reflector) [![npm version](https://badge.fury.io/js/pkg-reflector.svg)](https://badge.fury.io/js/pkg-reflector) [![npm](https://img.shields.io/npm/dm/pkg-reflector.svg)](https://www.npmjs.com/package/pkg-reflector)
+# pkg-reflector 
 
-> install the pkgs your js files
+[![Build Status](https://img.shields.io/circleci/project/zcong1993/pkg-reflector/master.svg?style=flat)](https://circleci.com/gh/zcong1993/pkg-reflector) [![NPM version](https://img.shields.io/npm/v/pkg-reflector.svg?style=flat-square)](https://npmjs.com/package/pkg-reflector) [![npm](https://img.shields.io/npm/dm/pkg-reflector.svg)](https://www.npmjs.com/package/pkg-reflector)
+
+> Find and install the npm modules your js files used
 
 
 ---
