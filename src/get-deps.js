@@ -1,18 +1,18 @@
-import globby from 'globby'
-import konan from 'konan'
-import {cwd, isFile, readFile} from './utils'
-import PkgError from './pkg-error'
+const globby = require('globby')
+const konan = require('konan')
+const { cwd, isFile, readFile } = require('./utils')
+const PkgError = require('./pkg-error')
 
-export default function getDeps (input, flags) {
+function getDeps(input, flags) {
   const files = globby.sync([...input, '!**/node_modules/**'])
   const allDeps = []
-  files.forEach((file) => {
+  files.forEach(file => {
     if (isFile(cwd(file))) {
-      allDeps.push(getFileDeps1(cwd(file), flags))
+      allDeps.push(getFileDeps(cwd(file), flags))
     }
   })
   return Promise.all(allDeps)
-    .then((results) => {
+    .then(results => {
       const pkgs = new Set(results.reduce((a, b) => a.concat(b), []))
       if ([...pkgs].length === 0) {
         return Promise.reject(new PkgError('no pkgs to install'))
@@ -21,46 +21,16 @@ export default function getDeps (input, flags) {
     })
 }
 
-// function getFileDeps (file, flags) {
-//   const isES = flags.es
-//   const isAll = flags.all
-//   const deps = []
-//   // require\(\W+([\w-.]+)[\/\w]*[\W]+\)
-//   const reg = /require\(['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+\)/i // eslint-disable-line no-useless-escape
-//   const regES = /^import[^."]+['"]+([a-zA-z][\w-.]+)[\/\w]*['"]+/i // eslint-disable-line no-useless-escape
-
-//   const rl = readline.createInterface({
-//     input: fs.createReadStream(file)
-//   })
-
-//   return new Promise((resolve) => {
-//     rl.on('line', (line) => {
-//       if (!isES || isAll) {
-//         const matches = line.match(reg)
-//         if (matches) {
-//           deps.push(matches[1])
-//         }
-//       }
-//       if (isES || isAll) {
-//         const matchesES = line.match(regES)
-//         if (matchesES) {
-//           deps.push(matchesES[1])
-//         }
-//       }
-//     }).on('close', () => {
-//       return resolve(deps)
-//     })
-//   })
-// }
-
-function getFileDeps1 (file) {
+function getFileDeps(file) {
   const code = readFile(file)
-  const {strings} = konan(code)
+  const { strings } = konan(code)
   return strings
-    .filter((module) => {
+    .filter(module => {
       return !/^\./.test(module)
     })
-    .map((module) => {
+    .map(module => {
       return module.split('/')[0]
     })
 }
+
+module.exports = getDeps

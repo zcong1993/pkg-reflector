@@ -3,9 +3,9 @@
   "version": "2.0.0",
   "description": "install the pkgs your js file used",
   "scripts": {
-    "test": "yarn run build",
-    "build": "gulp build",
-    "watch": "gulp watch"
+    "test": "jest",
+    "lint": "xo",
+    "lint:fix": "xo --fix"
   },
   "repository": {
     "type": "git",
@@ -22,38 +22,35 @@
     "url": "https://github.com/zcong1993/pkg-reflector/issues"
   },
   "homepage": "https://github.com/zcong1993/pkg-reflector#readme",
-  "devDependencies": {
-    "babel-preset-env": "^1.1.8",
-    "del": "^2.2.2",
-    "eslint": "^3.13.1",
-    "eslint-config-zc": "^0.0.7",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-chmod": "^2.0.0",
-    "gulp-eslint": "^3.0.1",
-    "gulp-watch": "^4.3.11"
-  },
   "dependencies": {
     "any-observable": "^0.2.0",
     "chalk": "^1.1.3",
     "co": "^4.6.0",
+    "cross-spawn": "^5.1.0",
     "execa": "^0.6.0",
     "globby": "^6.1.0",
     "konan": "^1.1.0",
     "listr": "^0.9.0",
     "meow": "^3.7.0",
-    "pkg-dir": "^1.0.0",
     "pkg-up": "^1.0.0",
     "split": "^1.0.0",
     "stream-to-observable": "^0.2.0",
     "update-notifier": "^1.0.3"
   },
   "files": [
-    "dist"
+    "src",
+    "bin"
   ],
-  "engines": ">=6",
   "bin": {
-    "pkg-reflector": "dist/bin/pkg-reflector",
-    "prf": "dist/bin/pkg-reflector"
+    "pkg-reflector": "bin/pkg-reflector",
+    "prf": "bin/pkg-reflector"
+  },
+  "xo": {
+    "extends": "rem"
+  },
+  "devDependencies": {
+    "eslint-config-rem": "^3.1.0",
+    "jest": "^20.0.4",
+    "xo": "^0.18.2"
   }
 }

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import meow from 'meow'
-import chalk from 'chalk'
-import path from 'path'
-import errorHandler from '../error-handler'
-import update from 'update-notifier'
-import pkg from '../../package'
-import {tasks} from '../'
+const meow = require('meow')
+const chalk = require('chalk')
+const path = require('path')
+const update = require('update-notifier')
+const errorHandler = require('../src/error-handler')
+const pkg = require('../package.json')
+const { tasks } = require('../src')
 
 const blue = chalk.blue
 const bold = chalk.bold
@@ -24,10 +24,6 @@ const {input, flags} = meow({
     ${bold('Options:')}
 
       ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
-
-      ${blue('--es')}                    ${dim(`# install es6 pkgs which keyword is 'import', default is 'require' `)}
-
-      ${blue('--all, -a')}               ${dim(`# install all pkgs both 'require' and 'import'`)}
 
       ${blue('--here, -h')}              ${dim(`# install the pkgs in the pwd folder`)}
 
@@ -53,4 +49,4 @@ tasks(input, flags)
     const updatedPkgs = ctx.deps.toString()
     console.log(green(`\n${chalk.gray.bgGreen.bold('success')} ${updatedPkgs} installed !\n`))
   })
-  .catch((err) => errorHandler(err))
+  .catch(errorHandler)
