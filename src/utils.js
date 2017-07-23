@@ -1,31 +1,29 @@
-import pkgUp from 'pkg-up'
-import PkgError from './pkg-error'
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
+const pkgUp = require('pkg-up')
 
-export function getDepsExisted () {
+exports.getDepsExisted = () => {
   const pkgPath = pkgUp.sync()
   if (!pkgPath) {
-    throw new PkgError('package.json not exists, please create first !')
+    return []
   }
-  const {dependencies, devDependencies} = require(pkgPath)
-  // const depsExists = Object.keys(dependencies).concat(Object.keys(devDependencies))
+  const { dependencies, devDependencies } = require(pkgPath)
   const depsExists = [].concat(Object.keys(dependencies || {}), Object.keys(devDependencies || {}))
   return depsExists
 }
 
-export function readFile (file) {
+exports.readFile = file => {
   return fs.readFileSync(file, 'utf8')
 }
 
-export function cwd (...args) {
+exports.cwd = (...args) => {
   return path.resolve(process.cwd(), ...args)
 }
 
-export function isFile (file) {
+exports.isFile = file => {
   return fs.statSync(file).isFile()
 }
 
-export function hasPkgJsonHere () {
+exports.hasPkgJsonHere = () => {
   return fs.existsSync(path.resolve(process.cwd(), 'package.json'))
 }

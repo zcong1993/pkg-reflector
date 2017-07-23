@@ -1,53 +1,58 @@
-import Listr from 'listr'
-import co from 'co'
-import pkgDir from 'pkg-dir'
-import getDeps from './get-deps'
-import {filterNodeCorePkgs, filterDepsExisted} from './filter'
-import exec from './exec'
-import {hasPkgJsonHere} from './utils'
+const Listr = require('listr')
+const co = require('co')
+const createInstall = require('./create-install')
+const getDeps = require('./get-deps')
+const { filterNodeCorePkgs, filterDepsExisted } = require('./filter')
+const exec = require('./exec')
+const { hasPkgJsonHere } = require('./utils')
+const PkgError = require('./pkg-error')
 
-export const tasks = co.wrap(function * (input, flags) {
+exports.tasks = co.wrap(function * (input, flags) {
   const tasks = new Listr([
+    {
+      title: 'Ensure if package.json exists',
+      task: () => {
+        if (!hasPkgJsonHere()) {
+          throw new PkgError('package.json not exists, please create first !')
+        }
+      }
+    },
     {
       title: 'Anylise the dependent pkgs',
       task: () => Promise.resolve('done')
     },
     {
       title: 'Filter the pkgs',
-      skip: (ctx) => ctx.deps.length === 0,
-      task: (ctx) => {
-        ctx.deps = ctx.deps.filter((pkg) => filterNodeCorePkgs(pkg))
-        if (!ctx.opts.here || hasPkgJsonHere()) {
-          ctx.deps = ctx.deps.filter((pkg) => filterDepsExisted(pkg))
-        }
+      skip: ctx => ctx.deps.length === 0,
+      task: ctx => {
+        ctx.deps = ctx.deps.filter(filterNodeCorePkgs).filter(filterDepsExisted)
       }
     },
     {
-      title: 'Install pkgs via yarn',
-      skip: (ctx) => {
+      title: 'Install pkgs',
+      skip: ctx => {
         if (ctx.deps.length === 0) {
           return 'deps already exists'
         }
       },
-      task: (ctx) => exec('yarn', ['add'].concat(ctx.deps, ctx.opts.yarn))
+      task: ctx => {
+        const [cmd, ...rest] = createInstall({
+          saveDev: ctx.opts.dev,
+          deps: ctx.deps
+        })
+        return exec(cmd, rest)
+      }
     }
   ])
 
   const opts = {
-    yarn: [],
-    here: ''
+    dev: false
   }
   const deps = yield getDeps(input, flags)
-  const projectRootPath = yield pkgDir()
 
   if (flags.d) {
-    opts.yarn.push('--dev')
-  }
-  if (flags.h) {
-    opts.here = true
-  } else {
-    process.chdir(projectRootPath)
+    opts.dev = true
   }
 
-  return tasks.run({deps, opts})
+  return tasks.run({ deps, opts })
 })
