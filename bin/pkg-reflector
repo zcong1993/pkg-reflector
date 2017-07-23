@@ -25,8 +25,6 @@ const {input, flags} = meow({
 
       ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
 
-      ${blue('--here, -h')}              ${dim(`# install the pkgs in the pwd folder`)}
-
     ${bold('Examples:')}
 
       ${blue('$ pkg-reflector src/* --dev')}
@@ -37,8 +35,7 @@ const {input, flags} = meow({
   alias: {
     v: 'version',
     d: 'dev',
-    a: 'all',
-    h: 'here'
+    h: 'help'
   }
 })
 

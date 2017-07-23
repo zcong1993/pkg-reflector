@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "install the pkgs your js file used",
   "scripts": {
-    "test": "jest",
+    "test": "jest && xo",
     "lint": "xo",
     "lint:fix": "xo --fix"
   },
@@ -46,7 +46,10 @@
     "prf": "bin/pkg-reflector"
   },
   "xo": {
-    "extends": "rem"
+    "extends": "rem",
+    "envs": [
+      "jest"
+    ]
   },
   "devDependencies": {
     "eslint-config-rem": "^3.1.0",

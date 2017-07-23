@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default usage 1`] = `
+Object {
+  "dependencies": Object {
+    "lodash": "^4.17.4",
+    "vue": "^2.4.2",
+  },
+}
+`;
+
+exports[`save dev 1`] = `
+Object {
+  "devDependencies": Object {
+    "lodash": "^4.17.4",
+    "vue": "^2.4.2",
+  },
+}
+`;
