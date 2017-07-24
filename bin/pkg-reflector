@@ -27,7 +27,7 @@ const {input, flags} = meow({
 
     ${bold('Examples:')}
 
-      ${blue('$ pkg-reflector src/* --dev')}
+      ${blue('$ pkg-reflector "src/*" --dev')}
 
       ${dim('# will install the file depends pkgs')}
   `

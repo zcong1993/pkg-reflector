@@ -1,5 +1,4 @@
 const Listr = require('listr')
-const co = require('co')
 const createInstall = require('./create-install')
 const getDeps = require('./get-deps')
 const { filterNodeCorePkgs, filterDepsExisted } = require('./filter')
@@ -7,7 +6,7 @@ const exec = require('./exec')
 const { hasPkgJsonHere } = require('./utils')
 const PkgError = require('./pkg-error')
 
-exports.tasks = co.wrap(function * (input, flags) {
+exports.tasks = (input, flags) => {
   const tasks = new Listr([
     {
       title: 'Ensure if package.json exists',
@@ -48,11 +47,11 @@ exports.tasks = co.wrap(function * (input, flags) {
   const opts = {
     dev: false
   }
-  const deps = yield getDeps(input, flags)
+  const deps = getDeps(input)
 
   if (flags.d) {
     opts.dev = true
   }
 
   return tasks.run({ deps, opts })
-})
+}

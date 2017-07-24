@@ -68,5 +68,6 @@ $ pkg-reflector file1 file2 ...
 or use `patterns` all [sindresorhus/globby](https://github.com/sindresorhus/globby) support
 
 ```sh
-$ pkg-reflector ./* 
+$ pkg-reflector "./**/*.js" 
 ```
+*Note:* you should pass args as string `"./**/*.js"`, not `./**/*.js`(this will be excuted by terminal, if it contains `node_modules` folder maybe cause error `zsh: argument list too long`)
