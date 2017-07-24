@@ -70,4 +70,4 @@ or use `patterns` all [sindresorhus/globby](https://github.com/sindresorhus/glob
 ```sh
 $ pkg-reflector "./**/*.js" 
 ```
-*Note:* you should pass args as string `"./**/*.js"`, not `./**/*.js`(this will be excuted by terminal, if it contains `node_modules` folder maybe cause error `zsh: argument list too long`)
+*Note:* you should pass args as string `"./**/*.js"`, not `./**/*.js`(this will be executed by terminal, if it contains `node_modules` folder maybe cause error `zsh: argument list too long`)
