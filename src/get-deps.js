@@ -4,7 +4,7 @@ const { cwd, isFile, readFile } = require('./utils')
 const PkgError = require('./pkg-error')
 
 function getDeps(input, flags) {
-  const files = globby.sync([...input, '!**/node_modules/**'])
+  const files = globby.sync([...input, '!./**/node_modules/**'])
   const allDeps = []
   files.forEach(file => {
     if (isFile(cwd(file))) {
