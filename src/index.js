@@ -37,7 +37,8 @@ exports.tasks = (input, flags) => {
       task: ctx => {
         const [cmd, ...rest] = createInstall({
           saveDev: ctx.opts.dev,
-          deps: ctx.deps
+          deps: ctx.deps,
+          flags
         })
         return exec(cmd, rest)
       }

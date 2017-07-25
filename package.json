@@ -3,7 +3,7 @@
   "version": "3.1.0",
   "description": "install the pkgs your js file used",
   "scripts": {
-    "test": "jest && xo",
+    "test": "xo && jest",
     "lint": "xo",
     "lint:fix": "xo --fix"
   },

@@ -2,7 +2,8 @@ const spawn = require('cross-spawn')
 
 module.exports = ({
   saveDev = false,
-  deps = []
+  deps = [],
+  flags
 } = {}) => {
   const cmds = {
     npm: ['npm', 'install', ...deps],
@@ -16,6 +17,14 @@ module.exports = ({
     cmds.npm.push('--save')
   }
 
+  if (flags.npm) {
+    return cmds.npm
+  }
+
+  if (flags.yarn) {
+    return cmds.yarn
+  }
+
   return shouldUseNpm() ? cmds.npm : cmds.yarn
 }
 
@@ -25,19 +34,6 @@ function checkYarnInstalled() {
   return installed
 }
 
-function isNpm5() {
-  const command = spawn.sync('npm', ['--version'])
-  const majorVersion = command.stdout.toString().trim().split('.')[0]
-  const isNpm5 = majorVersion >= 5
-  return isNpm5
-}
-
 function shouldUseNpm() {
-  if (isNpm5()) {
-    return true
-  }
-  if (!checkYarnInstalled()) {
-    return true
-  }
-  return false
+  return !checkYarnInstalled()
 }

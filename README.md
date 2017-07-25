@@ -4,10 +4,11 @@
 
 > Find and install the npm modules your js files used
 
-
 ---
 
 ## New
+
+- use flag `--npm` or `--yarn` choose installing tool (default: prefer `yarn` if available)
 
 - support alias `prf` for `pkg-reflector`
 
@@ -34,7 +35,7 @@ $ yarn add pkg1 pkg2 pkg3...
 you always get some error when add pkgs cause wrong spelling of the long pkg name, so use `pkg-reflector`, you can do it like this:
 
 ```sh
-$ pkg-reflector foo.js
+$ prf foo.js
 # then have a coffee
 ```
 
@@ -48,12 +49,12 @@ easy way, isn't it ?
 
 ## Usage
 ```sh
-$ pkg-reflector <js file[s]> [options]
+$ prf <js file[s]> [options]
 ```
 
 ### simple
 ```sh
-$ pkg-reflector <file>
+$ prf <file>
 ```
 
 
@@ -62,12 +63,12 @@ will install the pkgs and save `dependence`.
 ### multi files
 
 ```sh
-$ pkg-reflector file1 file2 ...
+$ prf file1 file2 ...
 ```
 
 or use `patterns` all [sindresorhus/globby](https://github.com/sindresorhus/globby) support
 
 ```sh
-$ pkg-reflector "./**/*.js" 
+$ prf "./**/*.js" 
 ```
 *Note:* you should pass args as string `"./**/*.js"`, not `./**/*.js`(this will be executed by terminal, if it contains `node_modules` folder maybe cause error `zsh: argument list too long`)

@@ -25,6 +25,10 @@ const {input, flags} = meow({
 
       ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
 
+      ${blue('--npm')}                   ${dim(`# use 'npm' install dependencies`)}
+
+      ${blue('--yarn')}                  ${dim(`# use 'yarn' install dependencies`)}
+
     ${bold('Examples:')}
 
       ${blue('$ pkg-reflector "src/*" --dev')}
