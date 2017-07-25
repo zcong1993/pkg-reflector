@@ -17,12 +17,12 @@ module.exports = ({
     cmds.npm.push('--save')
   }
 
-  if (flags.npm) {
-    return cmds.npm
+  if (flags.yarn && checkYarnInstalled()) {
+    return cmds.yarn
   }
 
-  if (flags.yarn) {
-    return cmds.yarn
+  if (flags.npm) {
+    return cmds.npm
   }
 
   return shouldUseNpm() ? cmds.npm : cmds.yarn
