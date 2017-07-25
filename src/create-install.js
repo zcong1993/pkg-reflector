@@ -25,15 +25,17 @@ module.exports = ({
     return cmds.npm
   }
 
-  return shouldUseNpm() ? cmds.npm : cmds.yarn
+  return checkYarnInstalled() ? cmds.yarn : cmds.npm
 }
+
+let hasYarn
 
 function checkYarnInstalled() {
+  if (hasYarn !== undefined) {
+    return hasYarn
+  }
   const command = spawn.sync('yarn', ['--version'])
   const installed = command.stdout && command.stdout.toString().trim()
+  hasYarn = installed
   return installed
-}
-
-function shouldUseNpm() {
-  return !checkYarnInstalled()
 }
