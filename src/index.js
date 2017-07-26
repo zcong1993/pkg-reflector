@@ -48,11 +48,12 @@ exports.tasks = (input, flags) => {
   const opts = {
     dev: false
   }
-  const deps = getDeps(input)
 
-  if (flags.d) {
-    opts.dev = true
-  }
-
-  return tasks.run({ deps, opts })
+  return getDeps(input)
+    .then(deps => {
+      if (flags.d) {
+        opts.dev = true
+      }
+      return tasks.run({ deps, opts })
+    })
 }

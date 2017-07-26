@@ -1,4 +1,5 @@
 const fs = require('fs')
+const util = require('util')
 const path = require('path')
 const pkgUp = require('pkg-up')
 
@@ -12,17 +13,9 @@ exports.getDepsExisted = () => {
   return depsExists
 }
 
-exports.readFile = file => {
-  return fs.readFileSync(file, 'utf8')
-}
+exports.readFile = util.promisify(fs.readFile)
 
-exports.cwd = (...args) => {
-  return path.resolve(process.cwd(), ...args)
-}
-
-exports.isFile = file => {
-  return fs.statSync(file).isFile()
-}
+exports.stat = util.promisify(fs.stat)
 
 exports.hasPkgJsonHere = () => {
   return fs.existsSync(path.resolve(process.cwd(), 'package.json'))
