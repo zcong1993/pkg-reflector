@@ -1,53 +1,37 @@
 #!/usr/bin/env node
-const meow = require('meow')
+const cac = require('cac')
 const chalk = require('chalk')
-const path = require('path')
 const update = require('update-notifier')
 const errorHandler = require('../src/error-handler')
 const pkg = require('../package.json')
 const { tasks } = require('../src')
 
-const blue = chalk.blue
-const bold = chalk.bold
-const dim = chalk.dim
-const green = chalk.green
-
-const {input, flags} = meow({
-  description: false,
-  help: `
-    install a js file depends pkgs automatic using yarn
-
-    ${bold('Usage:')}
-
-      $ pkg-reflector <file[s]> [options]
-
-    ${bold('Options:')}
-
-      ${blue('--dev, -d')}               ${dim('# save updated pkgs as devDependencies, default is dependencies')}
-
-      ${blue('--npm')}                   ${dim(`# use 'npm' install dependencies`)}
-
-      ${blue('--yarn')}                  ${dim(`# use 'yarn' install dependencies`)}
-
-    ${bold('Examples:')}
-
-      ${blue('$ pkg-reflector "src/*" --dev')}
-
-      ${dim('# will install the file depends pkgs')}
-  `
-}, {
-  alias: {
-    v: 'version',
-    d: 'dev',
-    h: 'help'
-  }
-})
+const cli = cac()
 
 update({pkg}).notify()
 
-tasks(input, flags)
-  .then((ctx) => {
-    const updatedPkgs = ctx.deps.toString()
-    console.log(green(`\n${chalk.gray.bgGreen.bold('success')} ${updatedPkgs} installed !\n`))
+const defaultCommanad = cli.command('*', 'Find and install the npm modules your js files used', (input, flags) => {
+  tasks(input, flags)
+    .then((ctx) => {
+      const updatedPkgs = ctx.deps.toString()
+      console.log(chalk.green(`\n${chalk.gray.bgGreen.bold('success')} ${updatedPkgs} installed !\n`))
+    })
+    .catch(errorHandler)
+})
+
+defaultCommanad
+  .option('dev', {
+    desc: 'save updated pkgs as devDependencies, default is dependencies',
+    type: 'boolean',
+    alias: 'd'
   })
-  .catch(errorHandler)
+  .option('npm', {
+    desc: `use 'npm' install dependencies`,
+    type: 'boolean'
+  })
+  .option('yarn', {
+    desc: `use 'yarn' install dependencies`,
+    type: 'boolean'
+  })
+
+cli.parse()

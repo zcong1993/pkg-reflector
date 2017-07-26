@@ -1,7 +1,7 @@
 {
   "name": "pkg-reflector",
   "version": "3.2.2",
-  "description": "install the pkgs your js file used",
+  "description": "Find and install the npm modules",
   "scripts": {
     "test": "xo && jest",
     "lint": "xo",
@@ -14,7 +14,9 @@
   "keywords": [
     "pkg",
     "install",
-    "reflect"
+    "reflect",
+    "npminstall",
+    "yarninstall"
   ],
   "author": "zcong1993",
   "license": "MIT",
@@ -24,13 +26,13 @@
   "homepage": "https://github.com/zcong1993/pkg-reflector#readme",
   "dependencies": {
     "any-observable": "^0.2.0",
+    "cac": "^4.0.0",
     "chalk": "^1.1.3",
     "cross-spawn": "^5.1.0",
     "execa": "^0.6.0",
     "globby": "^6.1.0",
     "konan": "^1.1.0",
     "listr": "^0.9.0",
-    "meow": "^3.7.0",
     "pkg-up": "^1.0.0",
     "split": "^1.0.0",
     "stream-to-observable": "^0.2.0",
