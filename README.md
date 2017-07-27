@@ -24,32 +24,27 @@ $ yarn global add pkg-reflector
 
 ## Feature
 
-Sometimes, you copy some js file from other folder or project, such as `rollup.config.js`,you only want to use it in your current project.
+Sometimes, we copy some js file from other folder or project, such as `rollup.config.js`,you only want to use it in your current project.
 
-If the js file depends some pkgs, you should install the pkgs first by your self, like this:
+If the js file depends some npm modules, you should install these first by yourself, like this:
 
 ```sh
-$ yarn add pkg1 pkg2 pkg3...
+$ yarn add module1 module2 module3...
 ```
 
-you always get some error when add pkgs cause wrong spelling of the long pkg name, so use `pkg-reflector`, you can do it like this:
+we may get some error when add modules cause wrong spelling of the long module name, so use `pkg-reflector`, you can do it like this:
 
 ```sh
 $ prf foo.js
-# then have a coffee
+# then all done
 ```
 
 easy way, isn't it ?
 
-- automatic ignore the pkgs your `package.json` exist
-- automatic ignore node core modules
-- ignore local file, such as `./index.js`
-- correct parse `foo/bar` pkgs
-- can only install es5 modules, es6 modules or all of them
-
 ## Usage
 ```sh
 $ prf <js file[s]> [options]
+# use 'prf -h' for more help
 ```
 
 ### simple
