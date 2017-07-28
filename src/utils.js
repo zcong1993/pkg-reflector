@@ -1,14 +1,13 @@
 const fs = require('fs')
 const util = require('util')
 const path = require('path')
-const pkgUp = require('pkg-up')
 
 exports.getDepsExisted = () => {
-  const pkgPath = pkgUp.sync()
-  if (!pkgPath) {
+  const pkg = path.resolve(process.cwd(), 'package.json')
+  if (!fs.existsSync(pkg)) {
     return []
   }
-  const { dependencies, devDependencies } = require(pkgPath)
+  const { dependencies, devDependencies } = require(pkg)
   const depsExists = [].concat(Object.keys(dependencies || {}), Object.keys(devDependencies || {}))
   return depsExists
 }

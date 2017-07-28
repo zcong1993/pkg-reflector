@@ -8,7 +8,7 @@ const { tasks } = require('../src')
 
 const cli = cac()
 
-update({pkg}).notify()
+update({ pkg }).notify()
 
 const defaultCommanad = cli.command('*', 'Find and install the npm modules your js files used', (input, flags) => {
   tasks(input, flags)
