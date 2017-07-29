@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const cac = require('cac')
 const chalk = require('chalk')
+const logSymbols = require('log-symbols')
 const update = require('update-notifier')
 const errorHandler = require('../src/error-handler')
 const pkg = require('../package.json')
@@ -14,7 +15,10 @@ const defaultCommanad = cli.command('*', 'Find and install the npm modules your 
   tasks(input, flags)
     .then((ctx) => {
       const updatedPkgs = ctx.deps.toString()
-      console.log(chalk.green(`\n${chalk.gray.bgGreen.bold('success')} ${updatedPkgs} installed !\n`))
+      if (!updatedPkgs) {
+        console.log(`\n${logSymbols.info}`, chalk.green(` Nothing to install !`))
+      }
+      console.log(`\n${logSymbols.success}`, chalk.green(` ${updatedPkgs} `, chalk.gray(`${flags.dry ? 'finded':'installed'} !\n`)))
     })
     .catch(errorHandler)
 })
@@ -31,6 +35,10 @@ defaultCommanad
   })
   .option('yarn', {
     desc: `use 'yarn' install dependencies`,
+    type: 'boolean'
+  })
+  .option('dry', {
+    desc: `dry run, only find npm modules`,
     type: 'boolean'
   })
 

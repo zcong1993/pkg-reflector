@@ -33,6 +33,9 @@ exports.tasks = (input, flags) => {
         if (ctx.deps.length === 0) {
           return 'deps already exists'
         }
+        if (flags.dry) {
+          return 'dry run'
+        }
       },
       task: ctx => {
         const [cmd, ...rest] = createInstall({
