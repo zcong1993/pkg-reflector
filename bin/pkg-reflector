@@ -41,5 +41,9 @@ defaultCommanad
     desc: `dry run, only find npm modules`,
     type: 'boolean'
   })
+  .option('custom-cmds', {
+    desc: `install npm modules with your custom cmds like 'cnpm install'`,
+    type: 'string'
+  })
 
 cli.parse()

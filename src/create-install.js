@@ -5,6 +5,11 @@ module.exports = ({
   deps = [],
   flags
 } = {}) => {
+  if (flags.customCmds) {
+    const cmds = flags.customCmds.split(' ')
+    return [...cmds, ...deps]
+  }
+
   const cmds = {
     npm: ['npm', 'install', ...deps],
     yarn: ['yarn', 'add', ...deps]
