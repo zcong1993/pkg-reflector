@@ -16,7 +16,7 @@ const defaultCommanad = cli.command('*', 'Find and install the npm modules your 
     .then((ctx) => {
       const updatedPkgs = ctx.deps.toString()
       if (!updatedPkgs) {
-        console.log(`\n${logSymbols.info}`, chalk.green(` Nothing to install !`))
+        return console.log(`\n${logSymbols.info}`, chalk.green(` Nothing to install !`))
       }
       console.log(`\n${logSymbols.success}`, chalk.green(` ${updatedPkgs} `, chalk.gray(`${flags.dry ? 'finded':'installed'} !\n`)))
     })
