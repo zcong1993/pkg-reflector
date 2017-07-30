@@ -10,6 +10,10 @@
 
 ## New
 
+- use flag `--custom-cmds="external install tool"` override the install command, eg: `--custom-cmds="cnpm install"`
+
+- use flag `--dry` to dry run, show the finded npm modules
+
 - use flag `--npm` or `--yarn` choose installing tool (default: prefer `yarn` if available)
 
 - support alias `prf` for `pkg-reflector`
